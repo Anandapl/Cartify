@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import Navbar from './components/Navbar';
 import { useState } from 'react';
 import Cart from './pages/Cart';
+import Footer from './components/footer';
 
 function App() {
   const [cart,setCart] = useState([])
@@ -78,7 +79,7 @@ const removeFunction = (id) =>{
     </div>
   )
 }
-
+<Footer setPage={setPage} />
     </div>
   );
 }

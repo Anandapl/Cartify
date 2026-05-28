@@ -6,6 +6,7 @@ import headphones from '../assets/images/Sony ULT Wear Headphones.jpg'
 import watch from '../assets/images/watch.png'
 import bag from '../assets/images/bag.png'
 import shoes from '../assets/images/shoe.png'
+import { useEffect } from 'react'
 
 export default function Home(props) {
     const products = [
@@ -30,47 +31,94 @@ export default function Home(props) {
 
     ];
 
-   
+
     const [searchTerm, setSearch] = useState("")
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+
+        setTimeout(() => {
+            setLoading(false)
+        }, 2000)
+
+    }, [])
     const filterProducts = products.filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()))
+
+    
 
 
     return (
-        
-        <div style={{ background: "black" }}>
-             <div className="hero-banner">
-      <div className="hero-content">
-        <div className='hero-flex'>
-        <h1>🔥 Summer Sale 2026</h1>
 
-        <p>Discover the latest fashion & electronics</p>
+        <div className='hero'>
+            <div className="hero-banner">
+                <div className="hero-content">
+                    <div className='hero-flex'>
+                        <h1>🔥 Summer Sale 2026</h1>
 
-        <button>Shop Now</button>
-        </div>
-         <div className='searchbar search-bar'>
-                <span className="search-icon">🔍</span>
-                <input type="search" placeholder='Search Products'
-                    onChange={(e) => setSearch(e.target.value)}></input>
+                        <p>Discover the latest fashion & electronics</p>
+
+                        <button>Shop Now</button>
+                    </div>
+                    <div className='searchbar search-bar'>
+                        <span className="search-icon">🔍</span>
+                        <input type="search" placeholder='Search Products'
+                            onChange={(e) => setSearch(e.target.value)}></input>
+                    </div>
+                </div>
             </div>
-      </div>
-    </div>
             <h1 className='products-heading'>Products</h1>
-           
+
             <div className='product-container'>
 
                 {
-                    filterProducts.length === 0 ? (<h2 style={{ color: 'white' }}>No Products Found</h2>
+                    loading ? (
+
+                        <div className="skeleton-wrapper">
+
+                            {
+                                [1, 2, 3, 4].map((item) => (
+
+                                    <div className="premium-skeleton-card" key={item}>
+
+                                        <div className="premium-skeleton-image"></div>
+
+                                        <div className="premium-skeleton-title"></div>
+
+                                        <div className="premium-skeleton-price"></div>
+
+                                        <div className="premium-skeleton-button"></div>
+
+                                    </div>
+
+                                ))
+                            }
+
+                        </div>
 
                     ) : (
 
-                        filterProducts.map((item) => (
-                            <ProductCard
-                                key={item.id}
-                                item={item}
-                                cartFunction={props.cartFunction}
-                            />
+                        filterProducts.length === 0 ? (
 
-                        ))
+                            <h2 style={{ color: 'white' }}>
+                                No Products Found
+                            </h2>
+
+                        ) : (
+
+                            filterProducts.map((item) => (
+                                <ProductCard
+                                    key={item.id}
+                                    item={item}
+
+                                    cartFunction={props.cartFunction}
+
+                                    wishlist={props.wishlist}
+                                    wishlistFunction={props.wishlistFunction}
+                                />
+                            ))
+
+                        )
+
                     )
                 }
 

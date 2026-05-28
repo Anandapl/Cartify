@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Footer(props) {
   return (
@@ -7,9 +8,21 @@ export default function Footer(props) {
       <h2>🛍 Cartify</h2>
 
       <div className="footer-links">
-       <p onClick={() => props.setPage('home')}>Home</p>
-        <p onClick={() => props.setPage('cart')}>Cart</p>
-        <p>Contact</p>
+
+        <Link to="/" className='footer-link'>
+          <p>Home</p>
+        </Link>
+
+        <Link to="/cart" className='footer-link'>
+          <p>Cart</p>
+        </Link>
+        <Link to="/Wishlist" className='footer-link'>
+          <p>Wishlist</p>
+        </Link>
+        <Link to="/About" className='footer-link'>
+          <p>About</p>
+        </Link>
+
       </div>
 
       <p className="footer-copy">
